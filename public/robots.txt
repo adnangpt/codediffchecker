@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://codediffchecker.ai.studio/sitemap.xml

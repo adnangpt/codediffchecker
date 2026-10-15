@@ -1,0 +1,8 @@
+{
+  "name": "DiffChecker",
+  "description": "Fast, sleek, and client-side code and text comparison tool. Compare differences side-by-side or inline with character-level highlights and hassle-free controls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
