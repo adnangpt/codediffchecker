@@ -6,6 +6,7 @@ import { SplitDiffView } from './components/SplitDiffView';
 import { UnifiedDiffView } from './components/UnifiedDiffView';
 import { DiffStatsBar } from './components/DiffStatsBar';
 import { KeyboardShortcutsModal } from './components/KeyboardShortcutsModal';
+import { SeoContent } from './components/SeoContent';
 import { ViewMode, DiffOptions, DiffChunk } from './types/diff';
 import { computeDiff, generatePatchText, mergeChunk } from './utils/diffEngine';
 import { SAMPLE_PRESETS, SamplePreset } from './utils/sampleData';
@@ -309,7 +310,7 @@ export default function App() {
   const hasAnyContent = hasOriginal || hasChanged;
 
   return (
-    <div className="h-screen w-screen overflow-hidden flex flex-col bg-neutral-100/50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors">
+    <div className="min-h-screen w-full flex flex-col bg-neutral-100/50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors">
       {/* Top Header */}
       <Header
         darkMode={darkMode}
@@ -376,8 +377,8 @@ export default function App() {
         </div>
       )}
 
-      {/* Content Area (Viewport-Restricted, Inner Scrollable Only) */}
-      <main className="flex-1 min-h-0 overflow-hidden flex flex-col p-2.5 sm:p-4 max-w-7xl w-full mx-auto">
+      {/* Content Area (Workspace with inner scrolling for large codefiles) */}
+      <main className="w-full max-w-7xl mx-auto p-2.5 sm:p-4 flex flex-col h-[calc(100vh-140px)] min-h-[580px] max-h-[880px] shrink-0">
         {!isDiffActive ? (
           /* Editor Mode: Side-by-side or Tabbed for Mobile */
           <div className="flex-1 min-h-0 flex flex-col gap-2">
@@ -516,6 +517,9 @@ export default function App() {
           onDownloadPatch={handleDownloadPatch}
         />
       )}
+
+      {/* On-Page SEO & Information Content Section */}
+      <SeoContent />
 
       {/* Keyboard Shortcuts Modal */}
       <KeyboardShortcutsModal

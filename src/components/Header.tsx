@@ -24,17 +24,20 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="border-b border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md sticky top-0 z-30 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
-        {/* Zone 1: Single text element wordmark */}
+        {/* Zone 1: Brand wordmark with single clean H1 for SEO */}
         <div className="flex items-center gap-2.5 shrink-0">
           <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold shadow-sm">
             <GitCompare className="w-4 h-4" />
           </div>
-          <a
-            href="/"
-            className="text-base sm:text-lg font-bold tracking-tight text-neutral-900 dark:text-neutral-100 whitespace-nowrap"
-          >
-            CodeDiffChecker
-          </a>
+          <h1 className="text-base sm:text-lg font-bold tracking-tight text-neutral-900 dark:text-neutral-100 whitespace-nowrap m-0 p-0 leading-tight">
+            <a
+              href="/"
+              className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+              title="Online Code Diff Checker - Free Code & Text Comparison Tool"
+            >
+              Online Code Diff Checker
+            </a>
+          </h1>
         </div>
 
         {/* Zone 2: Preset samples & fast quick-load links */}
