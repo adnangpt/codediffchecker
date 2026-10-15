@@ -91,12 +91,12 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   const hasAnyContent = hasOriginal || hasChanged;
 
   return (
-    <div className="border-b border-neutral-200 dark:border-neutral-800 bg-white/95 dark:bg-neutral-900/95 py-2 px-3 sm:px-6 shrink-0 relative z-30 shadow-xs">
-      <div className="max-w-7xl mx-auto flex flex-wrap xl:flex-nowrap items-center justify-between gap-2.5 sm:gap-3">
+    <div className="border-b border-neutral-200 dark:border-neutral-800 bg-white/95 dark:bg-neutral-900/95 py-2 px-2.5 sm:px-6 shrink-0 relative z-30 shadow-xs w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 sm:gap-3">
         {/* ========================================================= */}
         {/* ZONE 1: Primary View & Compare (Left)                      */}
         {/* ========================================================= */}
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
           {/* Main Action: Compare vs Edit */}
           <button
             onClick={onToggleDiffActive}
@@ -167,7 +167,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         {/* ========================================================= */}
         {/* ZONE 2: Diff Modifiers & Options (Center)                 */}
         {/* ========================================================= */}
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
           {/* Merge Changes Feature Button */}
           <div className="relative" ref={mergeMenuRef}>
             <button
@@ -193,7 +193,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 
             {/* Merge Operations Popover */}
             {diffOptions.mergeMode && showMergeMenu && diffCount > 0 && (
-              <div className="absolute left-0 top-full mt-2 w-72 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-neutral-200 dark:border-neutral-700 p-2.5 z-50 animate-in fade-in zoom-in-95 duration-100 ring-1 ring-black/5 dark:ring-white/10">
+              <div className="absolute left-0 top-full mt-2 w-72 max-w-[calc(100vw-1.5rem)] bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-neutral-200 dark:border-neutral-700 p-2.5 z-50 animate-in fade-in zoom-in-95 duration-100 ring-1 ring-black/5 dark:ring-white/10">
                 <div className="text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider px-2 py-1">
                   Batch Merge ({diffCount} differences)
                 </div>
@@ -267,7 +267,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 
             {/* Options Dropdown Box */}
             {showOptionsDropdown && (
-              <div className="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-neutral-200 dark:border-neutral-700 p-3.5 z-50 animate-in fade-in zoom-in-95 duration-100 ring-1 ring-black/5 dark:ring-white/10">
+              <div className="absolute right-0 top-full mt-2 w-72 max-w-[calc(100vw-1.5rem)] bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-neutral-200 dark:border-neutral-700 p-3.5 z-50 animate-in fade-in zoom-in-95 duration-100 ring-1 ring-black/5 dark:ring-white/10">
                 <div className="text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-2.5 px-1">
                   Diff Settings
                 </div>
@@ -348,7 +348,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         {/* ========================================================= */}
         {/* ZONE 3: Actions & Output (Right)                          */}
         {/* ========================================================= */}
-        <div className="flex items-center gap-2.5 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 flex-wrap">
           {/* Export Group */}
           <div className="flex items-center gap-1.5">
             <button

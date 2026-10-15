@@ -54,7 +54,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const jsonLd = {
+  const softwareAppJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'Code Diff Checker',
@@ -78,6 +78,69 @@ export default function RootLayout({
     ],
   };
 
+  const faqPageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is a code diff checker and how does it work?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'A code diff checker is an online developer tool that compares two versions of text, code, or configuration files side-by-side or inline. It uses advanced algorithms to instantly spot additions, deletions, and modifications with character-level or token-level precision.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is my code and data secure when using this online diff tool?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes, 100% secure. Our tool executes entirely inside your local browser sandbox. No proprietary code, API keys, or sensitive text files are ever uploaded to external servers or cloud logs.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Which programming languages and formats are supported?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'It supports all major programming languages and formats including JavaScript, TypeScript, Python, JSON, HTML, CSS, SQL, YAML, Rust, Go, Java, C++, Bash, and plain text files.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I compare large files with thousands of lines?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Absolutely! The editor handles large files smoothly with synchronized row-by-row scrolling, dedicated viewport heights, and optimized performance for files exceeding 10,000+ lines.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do I merge or export code differences?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'You can use interactive merge controls to selectively apply or reject individual difference chunks, copy separate panes, or download clean patch files directly from your browser.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I compare JSON, minified code, or formatted text without syntax errors?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. Code Diff Checker seamlessly handles minified single-line code, multi-line JSON configurations, and deeply nested syntax. You can toggle Word Wrap (Alt+Z) or ignore whitespace changes to easily compare minified production payloads against formatted development files.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How does Code Diff Checker differ from Git diff in terminal?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Unlike terminal git diff, our online tool provides interactive side-by-side split visualization, token-level character highlighting, instant one-click chunk merging, and clipboard patch exports directly in your browser without requiring a git repository or CLI setup.',
+        },
+      },
+    ],
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -93,7 +156,11 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageJsonLd) }}
         />
       </head>
       <body className="antialiased font-sans bg-neutral-100 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">

@@ -29,10 +29,14 @@
     <meta name="twitter:title" content="Code Diff Checker - Free Online Code & Text Comparison Tool" />
     <meta name="twitter:description" content="Free online code diff checker. Compare code, text snippets, and JSON files side-by-side or inline to spot differences, additions, and deletions instantly." />
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts (Optimized Non-Render-Blocking for Fast Mobile Performance) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    </noscript>
 
     <!-- Schema.org SoftwareApplication Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -62,7 +66,7 @@
     }
     </script>
 
-    <!-- Schema.org FAQPage Structured Data -->
+    <!-- Schema.org FAQPage Structured Data (7 High-Impact Google Rich Snippets) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -70,34 +74,58 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is Code Diff Checker?",
+          "name": "What is a code diff checker and how does it work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Code Diff Checker is a free online comparison tool built for developers to spot variances across codebases, configuration files, and text documents in real time with side-by-side or inline views."
+            "text": "A code diff checker is an online developer tool that compares two versions of text, code, or configuration files side-by-side or inline. It uses advanced algorithms to instantly spot additions, deletions, and modifications with character-level or token-level precision."
           }
         },
         {
           "@type": "Question",
-          "name": "How does Code Diff Checker ensure privacy?",
+          "name": "Is my code and data secure when using this online diff tool?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "All code comparison algorithms execute 100% inside your local web browser. No source code or proprietary snippets are ever transmitted or saved to external servers."
+            "text": "Yes, 100% secure. Our tool executes entirely inside your local browser sandbox. No proprietary code, API keys, or sensitive text files are ever uploaded to external servers or cloud logs."
           }
         },
         {
           "@type": "Question",
-          "name": "Can I merge differences between files?",
+          "name": "Which programming languages and formats are supported?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, Code Diff Checker includes interactive merge buttons allowing you to merge individual difference chunks or merge all changes from left-to-right or right-to-left."
+            "text": "It supports all major programming languages and formats including JavaScript, TypeScript, Python, JSON, HTML, CSS, SQL, YAML, Rust, Go, Java, C++, Bash, and plain text files."
           }
         },
         {
           "@type": "Question",
-          "name": "Which programming languages are supported?",
+          "name": "Can I compare large files with thousands of lines?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Code Diff Checker supports JavaScript, TypeScript, Python, JSON, HTML, CSS, SQL, YAML, Rust, Go, Java, C++, PHP, Bash, and plain text."
+            "text": "Absolutely! The editor handles large files smoothly with synchronized row-by-row scrolling, dedicated viewport heights, and optimized performance for files exceeding 10,000+ lines."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I merge or export code differences?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can use interactive merge controls to selectively apply or reject individual difference chunks, copy separate panes, or download clean patch files directly from your browser."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I compare JSON, minified code, or formatted text without syntax errors?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Code Diff Checker seamlessly handles minified single-line code, multi-line JSON configurations, and deeply nested syntax. You can toggle Word Wrap (Alt+Z) or ignore whitespace changes to easily compare minified production payloads against formatted development files."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Code Diff Checker differ from Git diff in terminal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Unlike terminal git diff, our online tool provides interactive side-by-side split visualization, token-level character highlighting, instant one-click chunk merging, and clipboard patch exports directly in your browser without requiring a git repository or CLI setup."
           }
         }
       ]

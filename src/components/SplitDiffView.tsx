@@ -54,13 +54,16 @@ export const SplitDiffView: React.FC<SplitDiffViewProps> = ({
   const showMerge = Boolean(options.mergeMode && onMergeChunk);
 
   return (
-    <div className="h-full min-h-0 flex flex-col bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl overflow-hidden shadow-xs">
-      {/* Pane Subheader */}
-      <div
-        className={`grid ${
-          showMerge ? 'grid-cols-[1fr_84px_1fr] sm:grid-cols-[1fr_96px_1fr]' : 'grid-cols-2'
-        } bg-neutral-100/95 dark:bg-neutral-800/95 border-b border-neutral-200 dark:border-neutral-800 text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400 shrink-0 select-none min-w-[620px]`}
-      >
+    <div className="h-full min-h-0 flex flex-col bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl overflow-hidden shadow-xs w-full max-w-full">
+      {/* Synchronized horizontal & vertical scroll container */}
+      <div className="flex-1 min-h-0 overflow-auto flex flex-col">
+        <div className="min-w-[620px] flex flex-col min-h-full">
+          {/* Pane Subheader */}
+          <div
+            className={`grid ${
+              showMerge ? 'grid-cols-[1fr_84px_1fr] sm:grid-cols-[1fr_96px_1fr]' : 'grid-cols-2'
+            } bg-neutral-100/95 dark:bg-neutral-800/95 border-b border-neutral-200 dark:border-neutral-800 text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400 shrink-0 select-none sticky top-0 z-20 backdrop-blur-xs`}
+          >
         <div className="px-3 sm:px-4 py-2 border-r border-neutral-200 dark:border-neutral-800 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
             <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />
@@ -126,9 +129,8 @@ export const SplitDiffView: React.FC<SplitDiffViewProps> = ({
         </div>
       </div>
 
-      {/* Synchronized Diff Rows Table (Inner Scrollable Container) */}
-      <div className="flex-1 min-h-0 overflow-y-auto overflow-x-auto">
-        <div className="min-w-[620px] font-mono text-xs leading-5">
+      {/* Synchronized Diff Rows Table */}
+      <div className="flex-1 font-mono text-xs leading-5">
           {rows.map((row, rIdx) => {
             const isTarget = row.isDiffStart && row.diffIndex === activeDiffIndex;
             const isHovered = row.diffIndex !== undefined && row.diffIndex === hoveredChunkIndex;
@@ -330,5 +332,6 @@ export const SplitDiffView: React.FC<SplitDiffViewProps> = ({
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 };

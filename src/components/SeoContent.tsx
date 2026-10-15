@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Columns2,
   Rows3,
@@ -11,10 +11,63 @@ import {
   Code,
   Laptop,
   Lock,
-  Layers,
+  ChevronDown,
+  HelpCircle,
+  Cpu,
+  FileSpreadsheet,
 } from 'lucide-react';
 
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+export const FAQ_DATA: FaqItem[] = [
+  {
+    question: 'What is a code diff checker and how does it work?',
+    answer:
+      'A code diff checker is an online developer tool that compares two versions of text, code, or configuration files side-by-side or inline. It uses advanced algorithms to instantly spot additions, deletions, and modifications with character-level or token-level precision.',
+  },
+  {
+    question: 'Is my code and data secure when using this online diff tool?',
+    answer:
+      'Yes, 100% secure. Our tool executes entirely inside your local browser sandbox. No proprietary code, API keys, or sensitive text files are ever uploaded to external servers or cloud logs.',
+  },
+  {
+    question: 'Which programming languages and formats are supported?',
+    answer:
+      'It supports all major programming languages and formats including JavaScript, TypeScript, Python, JSON, HTML, CSS, SQL, YAML, Rust, Go, Java, C++, Bash, and plain text files.',
+  },
+  {
+    question: 'Can I compare large files with thousands of lines?',
+    answer:
+      'Absolutely! The editor handles large files smoothly with synchronized row-by-row scrolling, dedicated viewport heights, and optimized performance for files exceeding 10,000+ lines.',
+  },
+  {
+    question: 'How do I merge or export code differences?',
+    answer:
+      'You can use interactive merge controls to selectively apply or reject individual difference chunks, copy separate panes, or download clean patch files directly from your browser.',
+  },
+  {
+    question: 'Can I compare JSON, minified code, or formatted text without syntax errors?',
+    answer:
+      'Yes. Code Diff Checker seamlessly handles minified single-line code, multi-line JSON configurations, and deeply nested syntax. You can toggle Word Wrap (Alt+Z) or ignore whitespace changes to easily compare minified production payloads against formatted development files.',
+  },
+  {
+    question: 'How does Code Diff Checker differ from Git diff in terminal?',
+    answer:
+      'Unlike terminal git diff, our online tool provides interactive side-by-side split visualization, token-level character highlighting, instant one-click chunk merging, and clipboard patch exports directly in your browser without requiring a git repository or CLI setup.',
+  },
+];
+
 export const SeoContent: React.FC = () => {
+  // Only 1st QA opened by default; clicking another smoothly opens it while closing the other
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex((prev) => (prev === index ? null : index));
+  };
+
   return (
     <section
       aria-label="Code Diff Checker Overview and Guide"
@@ -223,7 +276,7 @@ export const SeoContent: React.FC = () => {
       </div>
 
       {/* Interactive Merge Changes Feature Highlight */}
-      <div className="p-6 rounded-2xl bg-linear-to-r from-emerald-500/10 via-teal-500/5 to-transparent border border-emerald-500/20 mb-12">
+      <div className="p-6 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/5 to-transparent border border-emerald-500/20 mb-14">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h3 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
@@ -234,6 +287,66 @@ export const SeoContent: React.FC = () => {
               Merge individual difference chunks between original and changed code with one click. Selectively apply or reject changes, merge all left-to-right or right-to-left, and copy separate panes independently with safe undo snapshots.
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* High-Impact Frequently Asked Questions (FAQ) Section */}
+      <div className="mb-14">
+        <div className="mb-6">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/80 mb-2">
+            <HelpCircle className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+            <span>Developer FAQs</span>
+          </div>
+          <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+            Common questions about online code diffing, data security, file sizes, and merge workflows.
+          </p>
+        </div>
+
+        <div className="space-y-3">
+          {FAQ_DATA.map((faq, index) => {
+            const isOpen = openFaqIndex === index;
+            return (
+              <div
+                key={index}
+                className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/80 overflow-hidden transition-colors shadow-2xs"
+              >
+                <button
+                  type="button"
+                  onClick={() => toggleFaq(index)}
+                  className="w-full flex items-center justify-between gap-4 p-4 sm:p-5 text-left font-semibold text-neutral-900 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors focus:outline-hidden"
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${index}`}
+                >
+                  <span className="text-sm sm:text-base flex items-start gap-2.5">
+                    <span className="text-emerald-600 dark:text-emerald-400 font-mono text-xs sm:text-sm font-bold pt-0.5">
+                      Q{index + 1}.
+                    </span>
+                    <span>{faq.question}</span>
+                  </span>
+                  <ChevronDown
+                    className={`w-4 h-4 shrink-0 text-neutral-400 transition-transform duration-250 ease-out ${
+                      isOpen ? 'rotate-180 text-emerald-600 dark:text-emerald-400' : ''
+                    }`}
+                  />
+                </button>
+                <div
+                  id={`faq-answer-${index}`}
+                  role="region"
+                  className="faq-accordion-grid"
+                  data-state={isOpen ? 'open' : 'closed'}
+                >
+                  <div className="faq-accordion-inner">
+                    <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed border-t border-neutral-100 dark:border-neutral-800/50">
+                      <p className="pt-3">{faq.answer}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 

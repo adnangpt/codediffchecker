@@ -1,16 +1,26 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, lazy, Suspense } from 'react';
 import { Header } from './components/Header';
 import { Toolbar } from './components/Toolbar';
 import { InputPane } from './components/InputPane';
-import { SplitDiffView } from './components/SplitDiffView';
-import { UnifiedDiffView } from './components/UnifiedDiffView';
 import { DiffStatsBar } from './components/DiffStatsBar';
-import { KeyboardShortcutsModal } from './components/KeyboardShortcutsModal';
-import { SeoContent } from './components/SeoContent';
 import { ViewMode, DiffOptions, DiffChunk } from './types/diff';
 import { computeDiff, generatePatchText, mergeChunk } from './utils/diffEngine';
 import { SAMPLE_PRESETS, SamplePreset } from './utils/sampleData';
 import { Undo2, CheckCircle2, ArrowRight } from 'lucide-react';
+
+// Code-split heavy below-the-fold and on-demand components for high mobile Lighthouse score
+const SplitDiffView = lazy(() =>
+  import('./components/SplitDiffView').then((m) => ({ default: m.SplitDiffView }))
+);
+const UnifiedDiffView = lazy(() =>
+  import('./components/UnifiedDiffView').then((m) => ({ default: m.UnifiedDiffView }))
+);
+const SeoContent = lazy(() =>
+  import('./components/SeoContent').then((m) => ({ default: m.SeoContent }))
+);
+const KeyboardShortcutsModal = lazy(() =>
+  import('./components/KeyboardShortcutsModal').then((m) => ({ default: m.KeyboardShortcutsModal }))
+);
 
 export default function App() {
   // Theme state
@@ -310,7 +320,7 @@ export default function App() {
   const hasAnyContent = hasOriginal || hasChanged;
 
   return (
-    <div className="min-h-screen w-full flex flex-col bg-neutral-100/50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden flex flex-col bg-neutral-100/50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors">
       {/* Top Header */}
       <Header
         darkMode={darkMode}
@@ -476,23 +486,39 @@ export default function App() {
           /* Difference Inspector Mode (Inner Synchronized Scroll) */
           <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
             {viewMode === 'split' ? (
-              <SplitDiffView
-                rows={splitRows}
-                options={diffOptions}
-                activeDiffIndex={currentDiffIndex}
-                originalText={originalText}
-                changedText={changedText}
-                onMergeChunk={handleMergeChunk}
-              />
+              <Suspense
+                fallback={
+                  <div className="h-full flex items-center justify-center p-8 text-neutral-400 font-mono text-xs">
+                    Loading diff viewer...
+                  </div>
+                }
+              >
+                <SplitDiffView
+                  rows={splitRows}
+                  options={diffOptions}
+                  activeDiffIndex={currentDiffIndex}
+                  originalText={originalText}
+                  changedText={changedText}
+                  onMergeChunk={handleMergeChunk}
+                />
+              </Suspense>
             ) : (
-              <UnifiedDiffView
-                rows={unifiedRows}
-                options={diffOptions}
-                activeDiffIndex={currentDiffIndex}
-                originalText={originalText}
-                changedText={changedText}
-                onMergeChunk={handleMergeChunk}
-              />
+              <Suspense
+                fallback={
+                  <div className="h-full flex items-center justify-center p-8 text-neutral-400 font-mono text-xs">
+                    Loading diff viewer...
+                  </div>
+                }
+              >
+                <UnifiedDiffView
+                  rows={unifiedRows}
+                  options={diffOptions}
+                  activeDiffIndex={currentDiffIndex}
+                  originalText={originalText}
+                  changedText={changedText}
+                  onMergeChunk={handleMergeChunk}
+                />
+              </Suspense>
             )}
           </div>
         )}
@@ -519,13 +545,19 @@ export default function App() {
       )}
 
       {/* On-Page SEO & Information Content Section */}
-      <SeoContent />
+      <Suspense fallback={<div className="h-40" />}>
+        <SeoContent />
+      </Suspense>
 
       {/* Keyboard Shortcuts Modal */}
-      <KeyboardShortcutsModal
-        isOpen={shortcutsOpen}
-        onClose={() => setShortcutsOpen(false)}
-      />
+      {shortcutsOpen && (
+        <Suspense fallback={null}>
+          <KeyboardShortcutsModal
+            isOpen={shortcutsOpen}
+            onClose={() => setShortcutsOpen(false)}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }
